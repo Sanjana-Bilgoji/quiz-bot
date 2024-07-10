@@ -33,6 +33,15 @@ def record_current_answer(answer, current_question_id, session):
     Validates and stores the answer for the current question to django session.
     '''
     return True, ""
+    try:
+        if not answer:
+            return False, "Aswer cannot be empty."
+            session_key=f'question_{current_question_id}_answer'
+            session[session_key]=answer
+            session.modified=True
+            return True,"Answer recorded syccessfully."
+    except Exception as e:
+        return dalse,f"An error occurred:{str(e)}
 
 
 def get_next_question(current_question_id):
